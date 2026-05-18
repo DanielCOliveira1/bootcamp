@@ -1,10 +1,18 @@
 const express = require("express");
 const axios = require("axios");
+const path = require("path");
 
 const app = express();
 
+// Servir arquivos estáticos
 app.use(express.static("public"));
 
+// Rota principal
+app.get("/", (req, res) => {
+  res.sendFile(path.join(__dirname, "public", "index.html"));
+});
+
+// API CEP
 app.get("/api/cep/:cep", async (req, res) => {
   try {
     const { cep } = req.params;
@@ -19,5 +27,4 @@ app.get("/api/cep/:cep", async (req, res) => {
   }
 });
 
-// ⚠️ IMPORTANTE PARA VERCEL
 module.exports = app;
